@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Halal Income & Zakat Calculator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Halal Income &amp; Zakat Calculator</h1>
+  <div class="banner">
+    <strong>Madhhab: Hanbali.</strong> Stocks/shares are excluded from zakat, the full outstanding
+    balance of every debt is subtracted (no 12-month cap), and money lent to others is excluded
+    while unpaid. These are simplified organizer-provided rules for a community exercise, not a
+    fatwa. Unresolved cases should be directed to a qualified scholar.
+  </div>
+</header>
+
+<main>
+
+  <section id="upload-section" class="card">
+    <h2>1. Upload your data</h2>
+    <p class="hint">Workbook must contain Transactions / Assets / Debts / Wealth_History / User_Profile sheets.</p>
+    <form id="upload-form">
+      <input type="file" id="file-input" accept=".xlsx" required>
+      <button type="submit">Upload</button>
+    </form>
+    <p id="upload-status"></p>
+  </section>
+
+  <section id="manual-section" class="card">
+    <h2>2. Add income manually (optional)</h2>
+    <form id="manual-form">
+      <div class="form-grid">
+        <label>Date <input type="date" id="m-date"></label>
+        <label>Keyword
+          <select id="m-keyword" required></select>
+        </label>
+        <label>Amount (CAD) <input type="number" id="m-amount" min="0" step="0.01" required></label>
+        <label>Direction
+          <select id="m-direction">
+            <option value="inflow">inflow</option>
+            <option value="outflow">outflow</option>
+          </select>
+        </label>
+        <label>Scope
+          <select id="m-scope">
+            <option value="personal">personal</option>
+            <option value="business">business</option>
+          </select>
+        </label>
+        <label>Source/Merchant <input type="text" id="m-merchant"></label>
+      </div>
+      <label class="full-width">Description <textarea id="m-description" rows="2"></textarea></label>
+
+      <div id="m-mixed-fields" class="conditional-fields" hidden>
+        <label>Halal percentage of this payout (%)
+          <input type="number" id="m-pct" min="0" max="100" value="50">
+        </label>
+        <label>Was the haram portion disposed?
+          <select id="m-disposed">
+            <option value="yes">yes</option>
+            <option value="no">no</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="m-cost-basis-fields" class="conditional-fields" hidden>
+        <label>Cost basis (CAD) <input type="number" id="m-cost-basis" min="0" step="0.01"></label>
+      </div>
+
+      <div id="m-missing-fields" class="conditional-fields" hidden>
+        <label class="full-width">What information is missing?
+          <input type="text" id="m-missing" placeholder="e.g. underlying product/service not on record">
+        </label>
+      </div>
+
+      <button type="submit">Add transaction</button>
+      <button type="button" id="reset-manual-btn">Clear manual transactions</button>
+    </form>
+  </section>
+
+  <section id="results-section" class="card">
+    <h2>3. Results</h2>
+    <p id="no-data-message">Upload a workbook and/or add transactions manually to see results.</p>
+
+    <div id="results-content" hidden>
+
+      <h3>Income summary</h3>
+      <div class="summary-grid" id="income-summary"></div>
+
+      <div id="zakat-block" hidden>
+        <h3>Zakat summary (Hanbali)</h3>
+        <div class="summary-grid" id="zakat-summary"></div>
+        <p class="hawl-reason" id="hawl-reason"></p>
+        <p id="haram-asset-warning" class="warning-banner" hidden></p>
+      </div>
+
+      <div id="warnings-block" hidden>
+        <h3>⚠️ Needs attention</h3>
+        <div id="warnings-list"></div>
+      </div>
+
+      <h3>Every transaction, classified</h3>
+      <div class="filter-row" id="classification-filters"></div>
+      <div class="table-wrap"><table id="transactions-table"></table></div>
+
+      <div id="asset-debt-block" hidden>
+        <h3>Every asset, classified</h3>
+        <div class="table-wrap"><table id="assets-table"></table></div>
+
+        <h3>Every debt</h3>
+        <div class="table-wrap"><table id="debts-table"></table></div>
+        <p id="interest-note" class="hint"></p>
+
+        <details>
+          <summary>Hawl check — month by month</summary>
+          <div class="table-wrap"><table id="hawl-table"></table></div>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  These are simplified organizer-provided rules for this hackathon, not formal fatwas or
+  authoritative statements of any madhhab. Unresolved or tentative cases should be directed
+  to a qualified scholar.
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

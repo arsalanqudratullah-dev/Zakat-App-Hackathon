@@ -279,7 +279,16 @@ if asset_result is not None:
 
     st.subheader("Every debt")
     debt_table = pd.DataFrame(debt_result["debts"])
-    st.dataframe(debt_table, use_container_width=True, hide_index=True)
+    st.dataframe(
+        debt_table[["debt_id", "creditor", "keyword", "outstanding_balance_cad", "interest_bearing", "explanation"]],
+        use_container_width=True, hide_index=True,
+    )
+    if debt_table["interest_bearing"].any():
+        interest_total = debt_table.loc[debt_table["interest_bearing"], "outstanding_balance_cad"].sum()
+        st.caption(
+            f"${interest_total:,.2f} of the total debt is on interest-bearing accounts. The interest itself "
+            "is impermissible, but the outstanding balance is still subtracted as a real liability."
+        )
 
     with st.expander("Hawl check — month by month"):
         st.dataframe(pd.DataFrame(hawl_result["history"]), use_container_width=True, hide_index=True)
