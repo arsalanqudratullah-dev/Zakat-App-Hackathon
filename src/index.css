@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+@import "@fontsource-variable/fraunces";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+@theme {
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-mute: var(--ink-mute);
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+
+  --color-halal: var(--data-halal);
+  --color-mixed: var(--data-mixed);
+  --color-tentative: var(--data-tentative);
+  --color-haram: var(--data-haram);
+  --color-unknown: var(--data-unknown);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+:root {
+  --ground: #faf8f4;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --ink: #0c1b2e;
+  --ink-soft: #40536b;
+  --ink-mute: #75859a;
+  --line: #e2ddd2;
+  --line-soft: #efeae0;
+
+  --accent: #96700c;
+  --accent-soft: #f4ead2;
+  --accent-ink: #ffffff;
+
+  --data-halal: #04836e;
+  --data-mixed: #b5710a;
+  --data-tentative: #5561da;
+  --data-haram: #cb343a;
+  --data-unknown: #8a94a3;
+
+  --ramp-1: #8fa6c4;
+  --ramp-2: #6285ac;
+  --ramp-3: #3e6592;
+  --ramp-4: #274a73;
+  --ramp-5: #14304f;
+
+  --shadow-card: 0 1px 2px rgb(12 27 46 / 0.04), 0 8px 24px -12px rgb(12 27 46 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(12 27 46 / 0.06), 0 18px 40px -16px rgb(12 27 46 / 0.22);
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --ground: #0c1b2e;
+  --surface: #112640;
+  --surface-raised: #16304f;
+  --ink: #f2ede3;
+  --ink-soft: #a9b8cc;
+  --ink-mute: #71859f;
+  --line: #22405f;
+  --line-soft: #1a3350;
+
+  --accent: #d9b44a;
+  --accent-soft: #2a3a4f;
+  --accent-ink: #0c1b2e;
+
+  --data-halal: #12a075;
+  --data-mixed: #be8a1c;
+  --data-tentative: #7a83f0;
+  --data-haram: #e04a50;
+  --data-unknown: #7d8da0;
+
+  --ramp-1: #eaf1f9;
+  --ramp-2: #c3d3e6;
+  --ramp-3: #9bb2ce;
+  --ramp-4: #7391b2;
+  --ramp-5: #4e6e96;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 30px -14px rgb(0 0 0 / 0.6);
+  --shadow-lift: 0 2px 6px rgb(0 0 0 / 0.35), 0 24px 50px -18px rgb(0 0 0 / 0.7);
+
+  color-scheme: dark;
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  background: var(--ground);
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant-numeric: proportional-nums;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 0, "WONK" 0, "opsz" 40;
+  letter-spacing: -0.015em;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes sweep {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.animate-rise {
+  animation: rise 0.5s var(--ease-out-expo) both;
+}
+.animate-fade {
+  animation: fade 0.4s ease both;
+}
+.animate-sweep {
+  transform-origin: left;
+  animation: sweep 0.6s var(--ease-out-expo) both;
+}
+
+.stagger > * {
+  animation: rise 0.5s var(--ease-out-expo) both;
+}
+.stagger > *:nth-child(1) { animation-delay: 0.02s; }
+.stagger > *:nth-child(2) { animation-delay: 0.06s; }
+.stagger > *:nth-child(3) { animation-delay: 0.1s; }
+.stagger > *:nth-child(4) { animation-delay: 0.14s; }
+.stagger > *:nth-child(5) { animation-delay: 0.18s; }
+.stagger > *:nth-child(6) { animation-delay: 0.22s; }
+.stagger > *:nth-child(7) { animation-delay: 0.26s; }
+.stagger > *:nth-child(8) { animation-delay: 0.3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
